@@ -1,0 +1,6 @@
+#navStyle{
+    display: flex;
+  border: "#000 solid 1px";
+  
+  justify-content: space-around;
+}
