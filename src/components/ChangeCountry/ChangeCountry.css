@@ -1,0 +1,25 @@
+#changeCountry{
+    
+    font-size: 40px;
+    font-weight: 800;
+    margin: 30px;
+    margin-left: 400px;
+}
+#change{
+    
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 800px;
+    
+    
+    
+}
+.change{
+    font-size: 30px;
+    margin: 22px;
+    
+    width: 30%;
+    text-align: left;
+    padding: 30px;
+}

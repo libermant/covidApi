@@ -1,8 +1,11 @@
 import React from 'react'
+import AboutCorona from '../../components/AboutCorona/AboutCorona'
 
 const About = () => {
   return (
-    <div>About</div>
+    <div>
+      <AboutCorona corona={"COVID-19 CORONAVIRUS YRECKER"}/>
+    </div>
   )
 }
 

@@ -1,0 +1,17 @@
+.most{
+    width: 400px;
+    height: 200px;
+    border: #000 1px solid;
+    border-radius: 3%;
+    text-align: center;
+    margin: 10px;
+}
+#divMost{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 350px;
+    margin-top: 30px;
+    width: 1000px;
+    
+    
+}

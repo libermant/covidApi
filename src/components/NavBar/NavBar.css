@@ -1,6 +1,27 @@
+#countries{
+  border: #000 1px solid;
+  width: 20%;
+  height: 10px;
+}
 #navStyle{
-    display: flex;
-  border: "#000 solid 1px";
-  
+  display: flex;
+  border: #000 solid 1px; 
   justify-content: space-around;
+}
+#country{
+  border: #000 1px solid;
+  width: 20%;
+  height: 40px;
+}
+input{
+  margin-right: 20px;
+}
+#a{
+  border: #000 1px solid;
+  width: 200px;
+  height: 500px;  
+  position: absolute;
+  overflow-y: scroll;
+  background-color: rgb(218, 218, 218);
+  margin-left: 20px;
 }

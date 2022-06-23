@@ -1,10 +1,18 @@
 import React from "react";
 import "./Contries.css";
+import { useNavigate } from "react-router-dom";
 
 const Contries = ({ contries }) => {
+  const navigate = useNavigate();
   return (
-    <div id="contries">
-      <div className="contries">{contries}</div>
+    <div
+      onClick={() =>
+        navigate(`../country/${contries}`, {
+          state: { contries: `${contries}` },
+        })
+      }
+    >
+      {contries}
     </div>
   );
 };

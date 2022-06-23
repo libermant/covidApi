@@ -1,9 +1,79 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import "./Country.css";
+import axios from "axios";
+import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
 const Country = () => {
-  return (
-    <div>Country</div>
-  )
-}
+  const [dailyApdate, setDailyApdate] = useState([]);
+  const [isClick,setIsClick]=useState(false)
 
-export default Country
+
+  const location = useLocation();
+  const { state } = location;
+  const { contries } = state;
+
+  const params=useParams()
+  const{country}=params
+  console.log(country);
+
+  
+
+
+  
+
+  useEffect(() => {
+    try {
+      async function fetchData() {
+        const countriesApiUl = `https://disease.sh/v3/covid-19/countries/${contries}`;
+        const { data } = await axios.get(countriesApiUl);
+        const {
+          active,
+          cases,
+          recovered,
+          deaths,
+          critical,
+          todayCases,          
+        } = data;
+        setDailyApdate([{
+          active,
+          cases,
+          recovered,
+          deaths,
+          critical,
+          todayCases,          
+        }]);
+        console.log(dailyApdate);
+        //setIsClick(true)
+        //setDailyApdate(dailyApdate.toLocaleString())
+      }
+      fetchData();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [contries]);
+  
+
+  return (
+    <>
+    <div>country</div>
+    <div id="flex">
+      {dailyApdate.map((apdate)=>(
+        <ChangeCountry
+        ChangeCountry={contries}
+        ACTIVE={apdate.active.toLocaleString()}
+        CASES={apdate.cases.toLocaleString()}
+        RECOVERED={apdate.recovered.toLocaleString()}
+        DEATHS={apdate.deaths.toLocaleString()}
+        CRITICAL={apdate.critical.toLocaleString()}
+        TODAY_CASES={apdate.todayCases.toLocaleString()}        
+      />
+      ))}
+      
+    </div>
+    </>
+   
+  );
+};
+
+export default Country;
