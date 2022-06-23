@@ -53,9 +53,9 @@ const Home = () => {
     setSortDeaths(sort.sort((a, b) => a.deaths - b.deaths))
   },[sort])
   
-  console.log(sortDeaths[0]);
-  console.log(sortDeaths[10]);
-  console.log(sortDeaths[40]);
+  //console.log(sortDeaths[0]);
+ // console.log(sortDeaths[10]);
+  //console.log(sortDeaths[40]);
   
 
   return (

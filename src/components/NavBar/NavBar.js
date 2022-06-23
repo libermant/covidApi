@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 import Contries from "../Contries/Contries";
 import axios from "axios";
@@ -7,6 +7,7 @@ import "./NavBar.css";
 const NavBar = () => {
   const [countries, setCountries] = useState([]);
   const [countryInput, setCountryInput] = useState("");
+  const [mapArr, setMapArr] = useState(countries);
   const [isClick, setIsClick] = useState(false);
 
   const country = useRef(null);
@@ -20,6 +21,17 @@ const NavBar = () => {
     country.current.id = "a";
   };
 
+  useEffect(() => {
+    const newCountries = countries.filter((el) =>
+      el.toLowerCase().includes(countryInput)
+    );
+    setCountries(newCountries);
+
+    console.log(newCountries);
+    console.log(countryInput);
+    console.log(countries);
+  }, [countryInput]);
+
   return (
     <>
       <div id="navStyle">
@@ -28,18 +40,19 @@ const NavBar = () => {
         </div>
         <div>
           <input
+          placeholder="country"
+          value={countryInput}
             onClick={() => {
               setIsClick(true);
               fetchData();
               styleCountry();
             }}
             onChange={(e) => {
-              setCountries(
-                countries.filter((el) => el.includes(e.target.value))
+              setCountryInput(
+                e.target.value
               );
-              console.log(countries);
+              
             }}
-            /*onClick={()=>{setIsClick(false)}}*/
           ></input>
         </div>
         <div>
