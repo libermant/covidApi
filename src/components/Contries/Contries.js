@@ -7,9 +7,9 @@ const Contries = ({ contries }) => {
   return (
     <div
       onClick={() =>
-        navigate(`../country/${contries}`, {
-          state: { contries: `${contries}` },
-        })
+        navigate(`../country/${contries}`/*, {
+        state: { contries: `${contries}` },
+        }*/)
       }
     >
       {contries}

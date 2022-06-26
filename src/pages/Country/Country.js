@@ -9,9 +9,11 @@ const Country = () => {
   const [isClick,setIsClick]=useState(false)
 
 
-  const location = useLocation();
+  /*const location = useLocation();
   const { state } = location;
-  const { contries } = state;
+  const { contries } = state;*/
+
+
 
   const params=useParams()
   const{country}=params
@@ -25,7 +27,7 @@ const Country = () => {
   useEffect(() => {
     try {
       async function fetchData() {
-        const countriesApiUl = `https://disease.sh/v3/covid-19/countries/${contries}`;
+        const countriesApiUl = `https://disease.sh/v3/covid-19/countries/${country}`;
         const { data } = await axios.get(countriesApiUl);
         const {
           active,
@@ -51,16 +53,16 @@ const Country = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [contries]);
+  }, [country]);
+  console.log(dailyApdate);
   
 
   return (
-    <>
-    <div>country</div>
+    <>    
     <div id="flex">
       {dailyApdate.map((apdate)=>(
         <ChangeCountry
-        ChangeCountry={contries}
+        ChangeCountry={country}
         ACTIVE={apdate.active.toLocaleString()}
         CASES={apdate.cases.toLocaleString()}
         RECOVERED={apdate.recovered.toLocaleString()}

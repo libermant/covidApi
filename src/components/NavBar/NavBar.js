@@ -1,4 +1,4 @@
-import React, { useRef, useState ,useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Contries from "../Contries/Contries";
 import axios from "axios";
@@ -7,25 +7,26 @@ import "./NavBar.css";
 const NavBar = () => {
   const [countries, setCountries] = useState([]);
   const [countryInput, setCountryInput] = useState("");
-  const [mapArr, setMapArr] = useState(countries);
+  const [mapArr, setMapArr] = useState([countries]);
   const [isClick, setIsClick] = useState(false);
+  console.log(mapArr);
+  console.log(countries);
 
-  const country = useRef(null);
-
-  async function fetchData() {
-    const countriesApiUl = /*`https://corona-api.com/countries`*/ `https://disease.sh/v3/covid-19/countries`;
-    const { data } = await axios.get(countriesApiUl);
-    setCountries(data.map((el) => el.country));
-  }
-  const styleCountry = () => {
-    country.current.id = "a";
-  };
+  useEffect(() => {
+    async function fetchData() {
+      const countriesApiUl = `https://disease.sh/v3/covid-19/countries`;
+      const { data } = await axios.get(countriesApiUl);
+      setCountries(data.map((el) => el.country));
+    }
+    fetchData();
+  }, []);
+  console.log(countries);
 
   useEffect(() => {
     const newCountries = countries.filter((el) =>
       el.toLowerCase().includes(countryInput)
     );
-    setCountries(newCountries);
+    setMapArr(newCountries);
 
     console.log(newCountries);
     console.log(countryInput);
@@ -39,19 +40,21 @@ const NavBar = () => {
           <Link to="/">Home</Link>
         </div>
         <div>
-          <input
-          placeholder="country"
-          value={countryInput}
+          <button
             onClick={() => {
+              setIsClick(false);
+            }}
+          >
+            X
+          </button>
+          <input
+            placeholder="country"
+            value={countryInput}
+            onFocus={() => {
               setIsClick(true);
-              fetchData();
-              styleCountry();
             }}
             onChange={(e) => {
-              setCountryInput(
-                e.target.value
-              );
-              
+              setCountryInput(e.target.value);
             }}
           ></input>
         </div>
@@ -59,10 +62,10 @@ const NavBar = () => {
           <Link to="/about">About</Link>
         </div>
       </div>
-      <div ref={country}>
-        {countries.map((country) => (
-          <Contries contries={country} />
-        ))}
+      <div id="map">
+        {isClick
+          ? mapArr.map((country) => <Contries contries={country} />)
+          : ""}
       </div>
     </>
   );

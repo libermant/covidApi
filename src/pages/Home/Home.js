@@ -4,78 +4,71 @@ import DailyData from "../../components/DailyData/DailyData";
 import Most from "../../components/Most/Most";
 
 const Home = () => {
-  const [dailyData, setDailyData] = useState([]);
+  let o=[]
+  const [dailyData, setDailyData] = useState();
   const [sort, setSort] = useState([]);
   const [sortDeaths,setSortDeaths]=useState([])
-
+  const [isdaily,setisdaily]=useState(false)
+  const [issort,setissort]=useState(false)  
+  const [most,setMost]=useState(false)
+  // console.log(sort);
+useEffect(()=>{
+  try{
   async function fetchData() {
-    try {
-      const countriesApiUrl = `https://corona-api.com/timeline`;
-      const { data } = await axios.get(countriesApiUrl);
-      const a = data.data[0];
-      setDailyData([
-        {
-          TOTAL_CASES: a.confirmed.toLocaleString(),
-          DEATHS: a.deaths.toLocaleString(),
-          RECOVERED: a.recovered.toLocaleString(),
-          NEW_CASES: a.new_confirmed.toLocaleString(),
-          NEW_DEATHS: a.new_deaths.toLocaleString(),
-        },
-      ]);
-    } catch (e) {
+    const countriesApiUrl = `https://corona-api.com/timeline`;
+    const { data } = await axios.get(countriesApiUrl);
+    const a = data.data[0];    
+    setDailyData(a)
+    
+    setisdaily(true)
+  }
+  fetchData()}
+  catch(e){
+    console.log(e);
+  }  
+},[])
+
+ 
+useEffect(()=>{
+  try{async function fatchSort(){
+    const apiSortUrl = `https://disease.sh/v3/covid-19/countries`;
+      const { data } = await axios.get(apiSortUrl);  
+      console.log(data);  
+      setSort(data)   
+      setissort(true)  
+  }fatchSort()
+  }catch (e) {
       console.log(e);
     }
-  }
-  fetchData();
+},[])
+useEffect(()=>{
+  o =(sort.sort((a, b) => b.deaths - a.deaths))
+  console.log(o);
+  setMost(true)
+  console.log(most);
+},[issort])  
 
-  async function fatchSort() {
-    try {
-      const apiSortUrl = `https://disease.sh/v3/covid-19/countries`;
-      const { data } = await axios.get(apiSortUrl);      
-      setSort(
-        data.map((el) => [
-          {
-            country: el.country,
-            deaths: el.deaths,
-            todayDeaths: el.todayDeaths,
-            cases:el.cases,
-            todayCases:el.todayCases
-          },
-        ])        
-      );        
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  fatchSort();
-
-  useEffect(()=>{
-    setSortDeaths(sort.sort((a, b) => a.deaths - b.deaths))
-  },[sort])
-  
-  //console.log(sortDeaths[0]);
- // console.log(sortDeaths[10]);
-  //console.log(sortDeaths[40]);
   
 
   return (
     <div>
-      {dailyData.map((toDay) => (
-        <DailyData
-          TOTAL_CASES={toDay.TOTAL_CASES}
-          DEATHS={toDay.DEATHS}
-          RECOVERED={toDay.RECOVERED}
-          NEW_CASES={toDay.NEW_CASES}
-          NEW_DEATHS={toDay.NEW_DEATHS}
-        />
-      ))}
+    
+     
+      { isdaily? <DailyData
+          TOTAL_CASES={dailyData.confirmed}
+          DEATHS={dailyData.deaths}
+          RECOVERED={dailyData.recovered}
+          NEW_CASES={dailyData.new_confirmed}
+          NEW_DEATHS={dailyData.new_deaths}
+        />:null}
+      
 
-      <Most
-        deathsAllTime={"Most Deaths-All Time"}
+ {most? <Most
+        deathsAllTime={"Most Deaths-All Time"} a={o[0]}
         deathsAllToday={"Modt Confirmed-All Time"}
         confirmedAllTime={"Most Deaths-All Today"}
         confirmedAllToday={"Modt Confirmed-All Today"}
-      />
+      />:null}
     </div>
   );
 };
