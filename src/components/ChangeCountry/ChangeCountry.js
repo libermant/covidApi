@@ -9,7 +9,6 @@ const ChangeCountry = ({
   DEATHS,
   CRITICAL,
   TODAY_CASES,
- 
 }) => {
   return (
     <>
@@ -38,7 +37,7 @@ const ChangeCountry = ({
         <div className="change">
           <div>TODAY:</div>
           <div>{TODAY_CASES}</div>
-        </div>        
+        </div>
       </div>
     </>
   );

@@ -10,7 +10,7 @@ const DailyData = ({
 }) => {
   return (
     <>
-    <div id="covid">COVID-19 CORONAVIRUS YRECKER</div>
+      <div id="covid">COVID-19 CORONAVIRUS YRECKER</div>
       <div id="dailyData">
         <div id="TOTAL_CASES">
           TOTAL CASES<div id="TOTAL">{TOTAL_CASES}</div>

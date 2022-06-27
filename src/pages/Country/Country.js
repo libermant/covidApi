@@ -6,45 +6,32 @@ import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
 const Country = () => {
   const [dailyApdate, setDailyApdate] = useState([]);
-  const [isClick,setIsClick]=useState(false)
-
+  const [isClick, setIsClick] = useState(false);
 
   /*const location = useLocation();
   const { state } = location;
   const { contries } = state;*/
 
-
-
-  const params=useParams()
-  const{country}=params
+  const params = useParams();
+  const { country } = params;
   console.log(country);
-
-  
-
-
-  
 
   useEffect(() => {
     try {
       async function fetchData() {
         const countriesApiUl = `https://disease.sh/v3/covid-19/countries/${country}`;
         const { data } = await axios.get(countriesApiUl);
-        const {
-          active,
-          cases,
-          recovered,
-          deaths,
-          critical,
-          todayCases,          
-        } = data;
-        setDailyApdate([{
-          active,
-          cases,
-          recovered,
-          deaths,
-          critical,
-          todayCases,          
-        }]);
+        const { active, cases, recovered, deaths, critical, todayCases } = data;
+        setDailyApdate([
+          {
+            active,
+            cases,
+            recovered,
+            deaths,
+            critical,
+            todayCases,
+          },
+        ]);
         console.log(dailyApdate);
         //setIsClick(true)
         //setDailyApdate(dailyApdate.toLocaleString())
@@ -55,26 +42,23 @@ const Country = () => {
     }
   }, [country]);
   console.log(dailyApdate);
-  
 
   return (
-    <>    
-    <div id="flex">
-      {dailyApdate.map((apdate)=>(
-        <ChangeCountry
-        ChangeCountry={country}
-        ACTIVE={apdate.active.toLocaleString()}
-        CASES={apdate.cases.toLocaleString()}
-        RECOVERED={apdate.recovered.toLocaleString()}
-        DEATHS={apdate.deaths.toLocaleString()}
-        CRITICAL={apdate.critical.toLocaleString()}
-        TODAY_CASES={apdate.todayCases.toLocaleString()}        
-      />
-      ))}
-      
-    </div>
+    <>
+      <div id="flex">
+        {dailyApdate.map((apdate) => (
+          <ChangeCountry
+            ChangeCountry={country}
+            ACTIVE={apdate.active.toLocaleString()}
+            CASES={apdate.cases.toLocaleString()}
+            RECOVERED={apdate.recovered.toLocaleString()}
+            DEATHS={apdate.deaths.toLocaleString()}
+            CRITICAL={apdate.critical.toLocaleString()}
+            TODAY_CASES={apdate.todayCases.toLocaleString()}
+          />
+        ))}
+      </div>
     </>
-   
   );
 };
 
