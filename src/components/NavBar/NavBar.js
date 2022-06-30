@@ -1,11 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Contries from "../Contries/Contries";
-import axios from "axios";
 import "./NavBar.css";
 
 const NavBar = ({ countries }) => {
-  //const [contries, setCountriess] = useState([]);
   const [countryInput, setCountryInput] = useState("");
   const [mapArr, setMapArr] = useState([countries]);
   const [isClick, setIsClick] = useState(false);
@@ -13,15 +11,6 @@ const NavBar = ({ countries }) => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const countriesApiUl = `https://disease.sh/v3/covid-19/countries`;
-  //     const { data } = await axios.get(countriesApiUl);
-  //     setCountries(data.map((el) => el.country));
-  //   }
-  //   fetchData();
-  // }, []);
-  // console.log(countries);
   const style = () => {
     a.current.id = "a";
   };
@@ -31,16 +20,20 @@ const NavBar = ({ countries }) => {
       el.country.toLowerCase().includes(countryInput)
     );
     setMapArr(newCountries);
-
-    console.log(newCountries);
-    console.log(countryInput);
   }, [countryInput]);
 
   return (
     <>
       <div id="navStyle">
         <div>
-          <Link to="/">Home</Link>
+          <Link
+            to="/"
+            onClick={() => {
+              setIsClick(false);
+            }}
+          >
+            Home
+          </Link>
         </div>
         <div>
           {isClick ? (
@@ -72,10 +65,18 @@ const NavBar = ({ countries }) => {
           ></input>
         </div>
         <div>
-          <Link to="/about">About</Link>
+          <Link
+            to="/about"
+            onClick={() => {
+              setIsClick(false);
+              setCountryInput();
+            }}
+          >
+            About
+          </Link>
         </div>
       </div>
-      <div /*id="map"*/ ref={a}>
+      <div ref={a}>
         {isClick
           ? mapArr.map((country) => (
               <Contries

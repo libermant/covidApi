@@ -5,7 +5,7 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Country from "./pages/Country/Country";
 import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -17,8 +17,7 @@ function App() {
       const { data } = await axios.get(countriesApiUl);
       console.log("data");
       console.log(data);
-      setCountries(data /*.map((el) => el.country)*/);
-      // console.log(data);
+      setCountries(data);
     }
     fetchData();
   }, []);

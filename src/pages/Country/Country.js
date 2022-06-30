@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { 
+  
+  useParams } from "react-router-dom";
 import "./Country.css";
 import axios from "axios";
 import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
 const Country = () => {
   const [dailyApdate, setDailyApdate] = useState([]);
-  const [isClick, setIsClick] = useState(false);
-
-  /*const location = useLocation();
-  const { state } = location;
-  const { contries } = state;*/
 
   const params = useParams();
   const { country } = params;
@@ -32,16 +29,12 @@ const Country = () => {
             todayCases,
           },
         ]);
-        console.log(dailyApdate);
-        //setIsClick(true)
-        //setDailyApdate(dailyApdate.toLocaleString())
       }
       fetchData();
     } catch (e) {
       console.log(e);
     }
   }, [country]);
-  console.log(dailyApdate);
 
   return (
     <>
