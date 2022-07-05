@@ -8,6 +8,7 @@ import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
 const Country = () => {
   const [dailyApdate, setDailyApdate] = useState([]);
+  
 
   const params = useParams();
   const { country } = params;
@@ -34,7 +35,9 @@ const Country = () => {
     } catch (e) {
       console.log(e);
     }
+    
   }, [country]);
+  
 
   return (
     <>

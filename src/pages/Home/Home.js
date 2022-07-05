@@ -3,24 +3,24 @@ import axios from "axios";
 import DailyData from "../../components/DailyData/DailyData";
 import Most from "../../components/Most/Most";
 
-const Home = ({ countries }) => {
-  const [dailyData, setDailyData] = useState();
-  const [isdaily, setisdaily] = useState(false);
+const Home = ({ countries ,dailyData,isdaily}) => {
+  // const [dailyData, setDailyData] = useState();
+  // const [isdaily, setisdaily] = useState(false);
 
-  useEffect(() => {
-    try {
-      async function fetchData() {
-        const countriesApiUrl = `https://corona-api.com/timeline`;
-        const { data } = await axios.get(countriesApiUrl);
-        const a = data.data[0];
-        setDailyData(a);
-        setisdaily(true);
-      }
-      fetchData();
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     async function fetchData() {
+  //       const countriesApiUrl = `https://corona-api.com/timeline`;
+  //       const { data } = await axios.get(countriesApiUrl);
+  //       const a = data.data[0];
+  //       setDailyData(a);
+  //       setisdaily(true);
+  //     }
+  //     fetchData();
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
 
   return (
     <div>

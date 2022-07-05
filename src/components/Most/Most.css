@@ -18,3 +18,8 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+li:hover {
+    border-bottom: 1px solid #000;
+    max-width: 80px;
+    }

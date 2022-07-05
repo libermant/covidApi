@@ -7,6 +7,8 @@
   display: flex;
   border: #000 solid 1px; 
   justify-content: space-around;
+  
+  padding: 10px;
 }
 #country{
   border: #000 1px solid;
@@ -16,14 +18,21 @@
 input{
   margin-right: 20px;
 }
-#a{
-  border: #000 1px solid;
-  
+.display{
+  border: #000 1px solid;  
+  max-height: 500px;
+  width: 200px;
   position: absolute;
   overflow-y: scroll;
-  background-color: rgb(218, 218, 218);
+  background-color: #fff;
   margin-left:640px;
+}
+.display div{
+  padding: 3px;
 }
 #map{
   margin-left: 700px;
 }
+.display div:hover {
+  background-color: blue;
+  }
