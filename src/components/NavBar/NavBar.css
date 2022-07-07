@@ -20,12 +20,12 @@ input{
 }
 .display{
   border: #000 1px solid;  
-  max-height: 500px;
+  max-height: 300px;
   width: 200px;
   position: absolute;
   overflow-y: scroll;
   background-color: #fff;
-  margin-left:640px;
+  margin-left:560px;
 }
 .display div{
   padding: 3px;

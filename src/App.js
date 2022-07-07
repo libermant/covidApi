@@ -12,6 +12,8 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [dailyData, setDailyData] = useState();
   const [isdaily, setisdaily] = useState(false);
+  const [isClick, setIsClick] = useState(false);
+
 
   useEffect(() => {
     console.log("fetch effect");
@@ -42,7 +44,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <NavBar countries={countries} />
+        <NavBar countries={countries} isClick={isClick} setIsClick={setIsClick}/>
         <Routes>
           <Route path="/" element={<Home countries={countries}isdaily={isdaily} dailyData={dailyData}/>} />
           <Route path="/about" element={<About dailyData={dailyData} />} />

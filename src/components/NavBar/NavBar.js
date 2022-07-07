@@ -3,10 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Contries from "../Contries/Contries";
 import "./NavBar.css";
 
-const NavBar = ({ countries }) => {
+const NavBar = ({ countries ,isClick,setIsClick}) => {
   const [countryInput, setCountryInput] = useState("");
-  const [mapArr, setMapArr] = useState([countries]);
-  const [isClick, setIsClick] = useState(false);
+  const [mapArr, setMapArr] = useState([]);
   const a = useRef(null);
   //const includesCounries=countries.map((el)=>el.country)
   const q=countries.map((el) =>
@@ -77,6 +76,10 @@ const NavBar = ({ countries }) => {
             onChange={(e) => {
               setCountryInput(e.target.value);
             }}
+            onClick={()=>{setMapArr(countries)}}
+
+
+
           ></input>
         </div>
         <div>
@@ -85,6 +88,7 @@ const NavBar = ({ countries }) => {
             onClick={() => {
               setIsClick(false);
               setCountryInput();
+              
             }}
           >
             About
