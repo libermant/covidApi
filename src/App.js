@@ -10,30 +10,37 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [dailyData, setDailyData] = useState();
+  const [dailyData, setDailyData] = useState([]);
+  const [Yesterday, setYesterday] = useState([]);
+  const [dayBeforeYesterday, setDayBeforeYesterday] = useState([]);
+
   const [isdaily, setisdaily] = useState(false);
   const [isClick, setIsClick] = useState(false);
 
-
   useEffect(() => {
-    console.log("fetch effect");
     async function fetchData() {
       const countriesApiUl = `https://disease.sh/v3/covid-19/countries`;
       const { data } = await axios.get(countriesApiUl);
-      console.log("data");
-      console.log(data);
+
       setCountries(data);
     }
     fetchData();
   }, []);
- 
+
   useEffect(() => {
     try {
       async function fetchData() {
         const countriesApiUrl = `https://corona-api.com/timeline`;
         const { data } = await axios.get(countriesApiUrl);
+        
+        console.log(data[0]);
         const a = data.data[0];
+        const b = data.data[1];
+        const c = data.data[2];
+
         setDailyData(a);
+        setYesterday(b);
+        setDayBeforeYesterday(c);
         setisdaily(true);
       }
       fetchData();
@@ -44,10 +51,33 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <NavBar countries={countries} isClick={isClick} setIsClick={setIsClick}/>
+        <NavBar
+          countries={countries}
+          isClick={isClick}
+          setIsClick={setIsClick}
+        />
         <Routes>
-          <Route path="/" element={<Home countries={countries}isdaily={isdaily} dailyData={dailyData}/>} />
-          <Route path="/about" element={<About dailyData={dailyData} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                countries={countries}
+                isdaily={isdaily}
+                dailyData={dailyData}
+                setIsClick={setIsClick}
+              />
+            }
+          />
+          <Route
+            path="/data"
+            element={
+              <About
+                dailyData={dailyData}
+                Yesterday={Yesterday}
+                dayBeforeYesterday={dayBeforeYesterday}
+              />
+            }
+          />
           {/*<Route path="/about2" element={<About2 />} />*/}
 
           <Route path="/country/:country" element={<Country />} />

@@ -3,20 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Contries from "../Contries/Contries";
 import "./NavBar.css";
 
-const NavBar = ({ countries ,isClick,setIsClick}) => {
+const NavBar = ({ countries, isClick, setIsClick }) => {
   const [countryInput, setCountryInput] = useState("");
   const [mapArr, setMapArr] = useState([]);
-  const a = useRef(null);
-  //const includesCounries=countries.map((el)=>el.country)
-  const q=countries.map((el) =>
-  el.country.toLowerCase())
- console.log(q);
-
+  const listCountries = countries.map((el) => el.country.toLowerCase());
   const navigate = useNavigate();
-
-  // const style = () => {
-  //   a.current.id = "a";
-  // };
 
   useEffect(() => {
     const newCountries = countries.filter((el) =>
@@ -24,6 +15,9 @@ const NavBar = ({ countries ,isClick,setIsClick}) => {
     );
     setMapArr(newCountries);
   }, [countryInput]);
+  useEffect(() => {
+    setMapArr(countries);
+  }, [countries]);
 
   return (
     <>
@@ -44,7 +38,6 @@ const NavBar = ({ countries ,isClick,setIsClick}) => {
               onClick={() => {
                 setIsClick(false);
                 setCountryInput("");
-                a.current.id = "";
               }}
             >
               X
@@ -54,20 +47,12 @@ const NavBar = ({ countries ,isClick,setIsClick}) => {
             placeholder="country"
             value={countryInput}
             onFocus={() => {
-              // style();
               setIsClick(true);
             }}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
-                if (
-                q .includes(countryInput)
-                  
-                ) {
-                  try {
-                    navigate(`../country/${countryInput}`);
-                  } catch (e) {
-                    console.log(e);
-                  }
+                if (listCountries.includes(countryInput)) {
+                  navigate(`../country/${countryInput}`);
                 } else {
                   alert("A country does not exist");
                 }
@@ -76,35 +61,19 @@ const NavBar = ({ countries ,isClick,setIsClick}) => {
             onChange={(e) => {
               setCountryInput(e.target.value);
             }}
-            onClick={()=>{setMapArr(countries)}}
-
-
-
           ></input>
         </div>
         <div>
           <Link
-            to="/about"
+            to="/data"
             onClick={() => {
               setIsClick(false);
               setCountryInput();
-              
             }}
           >
-            About
+            Data
           </Link>
         </div>
-        {/*<div>
-          <Link
-            to="/about2"
-            onClick={() => {
-              setIsClick(false);
-              setCountryInput();
-            }}
-          >
-            About2
-          </Link>
-          </div>*/}
       </div>
       <div className={`${isClick ? "display" : "hide"}`}>
         {isClick

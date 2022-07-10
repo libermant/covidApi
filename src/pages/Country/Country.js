@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { 
-  
-  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./Country.css";
 import axios from "axios";
 import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
 const Country = () => {
   const [dailyApdate, setDailyApdate] = useState([]);
-  
 
   const params = useParams();
   const { country } = params;
-  console.log(country);
 
   useEffect(() => {
     try {
@@ -35,9 +31,7 @@ const Country = () => {
     } catch (e) {
       console.log(e);
     }
-    
   }, [country]);
-  
 
   return (
     <>
