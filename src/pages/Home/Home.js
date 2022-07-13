@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DailyData from "../../components/DailyData/DailyData";
 import Most from "../../components/Most/Most";
 import "./Home.css";
-const Home = ({ countries, dailyData, isdaily, setIsClick }) => {
+const Home = ({ countries, dailyData, isdaily, setIsClick ,numberWithCommas}) => {
   const sort = [...countries];
   const [sortTodayDeaths, setSortTodayDeaths] = useState([]);
   const [sortDeaths, setSortDeaths] = useState([]);
@@ -30,17 +30,16 @@ const Home = ({ countries, dailyData, isdaily, setIsClick }) => {
 
   return (
     <div>
-      {isdaily ? <DailyData dailyData={dailyData} /> : null}
+      {isdaily && <DailyData dailyData={dailyData}numberWithCommas={numberWithCommas} />}
       <div className="sort">
-        {isSort
-          ? arr.map((el, i) => (
-              <Most
-                title={title["title" + i]}
-                sorty={el}
-                setIsClick={setIsClick}
-              />
-            ))
-          : null}
+        {isSort &&
+          arr.map((el, i) => (
+            <Most
+              title={title["title" + i]}
+              sorty={el}
+              setIsClick={setIsClick}
+            />
+          ))}
       </div>
     </div>
   );

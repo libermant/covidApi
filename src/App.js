@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
+import NotFound from "./pages/NotFound/NotFounf";
 //import About2 from "./pages/About2/About2";
 import Country from "./pages/Country/Country";
 import axios from "axios";
@@ -16,6 +17,10 @@ function App() {
 
   const [isdaily, setisdaily] = useState(false);
   const [isClick, setIsClick] = useState(false);
+
+  function numberWithCommas(x) {
+    return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +38,7 @@ function App() {
         const countriesApiUrl = `https://corona-api.com/timeline`;
         const { data } = await axios.get(countriesApiUrl);
         
-        console.log(data[0]);
+        
         const a = data.data[0];
         const b = data.data[1];
         const c = data.data[2];
@@ -65,6 +70,7 @@ function App() {
                 isdaily={isdaily}
                 dailyData={dailyData}
                 setIsClick={setIsClick}
+                numberWithCommas={numberWithCommas}
               />
             }
           />
@@ -80,7 +86,8 @@ function App() {
           />
           {/*<Route path="/about2" element={<About2 />} />*/}
 
-          <Route path="/country/:country" element={<Country />} />
+          <Route path="/country/:country" element={<Country numberWithCommas={numberWithCommas} />} />
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </div>

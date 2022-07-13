@@ -4,7 +4,7 @@ import "./Country.css";
 import axios from "axios";
 import ChangeCountry from "../../components/ChangeCountry/ChangeCountry";
 
-const Country = () => {
+const Country = ({numberWithCommas}) => {
   const [dailyApdate, setDailyApdate] = useState([]);
 
   const params = useParams();
@@ -16,16 +16,14 @@ const Country = () => {
         const countriesApiUl = `https://disease.sh/v3/covid-19/countries/${country}`;
         const { data } = await axios.get(countriesApiUl);
         const { active, cases, recovered, deaths, critical, todayCases } = data;
-        setDailyApdate([
-          {
-            active,
-            cases,
-            recovered,
-            deaths,
-            critical,
-            todayCases,
-          },
-        ]);
+        setDailyApdate({
+          active,
+          cases,
+          recovered,
+          deaths,
+          critical,
+          todayCases,
+        });
       }
       fetchData();
     } catch (e) {
@@ -36,17 +34,7 @@ const Country = () => {
   return (
     <>
       <div id="flex">
-        {dailyApdate.map((apdate) => (
-          <ChangeCountry
-            ChangeCountry={country}
-            ACTIVE={apdate.active.toLocaleString()}
-            CASES={apdate.cases.toLocaleString()}
-            RECOVERED={apdate.recovered.toLocaleString()}
-            DEATHS={apdate.deaths.toLocaleString()}
-            CRITICAL={apdate.critical.toLocaleString()}
-            TODAY_CASES={apdate.todayCases.toLocaleString()}
-          />
-        ))}
+        <ChangeCountry ChangeCountry={country} dailyApdate={dailyApdate} numberWithCommas={numberWithCommas} />
       </div>
     </>
   );

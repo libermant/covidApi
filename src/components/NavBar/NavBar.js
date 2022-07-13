@@ -27,6 +27,7 @@ const NavBar = ({ countries, isClick, setIsClick }) => {
             to="/"
             onClick={() => {
               setIsClick(false);
+              setCountryInput("");
             }}
           >
             Home
@@ -68,7 +69,7 @@ const NavBar = ({ countries, isClick, setIsClick }) => {
             to="/data"
             onClick={() => {
               setIsClick(false);
-              setCountryInput();
+              setCountryInput("");
             }}
           >
             Data
@@ -83,6 +84,7 @@ const NavBar = ({ countries, isClick, setIsClick }) => {
                 clikFunc={() => {
                   navigate(`../country/${country.country}`);
                   setIsClick(false);
+                  setCountryInput("");
                 }}
               />
             ))
