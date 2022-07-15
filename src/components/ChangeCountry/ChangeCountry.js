@@ -20,7 +20,7 @@ const ChangeCountry = ({ ChangeCountry, dailyApdate ,numberWithCommas}) => {
           <div className="change">
             <div>{item}:</div>
             {item === "TODAY" ? 
-              <div>{dailyApdate["todayCases"]}</div>
+              <div>{numberWithCommas(dailyApdate["todayCases"])}</div>
              : 
               <div>{numberWithCommas(dailyApdate[item.toLowerCase()])}</div>
             }
